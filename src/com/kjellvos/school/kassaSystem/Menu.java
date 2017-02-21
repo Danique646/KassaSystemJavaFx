@@ -53,12 +53,7 @@ public class Menu {
         newOrderText.setFont(font);                                     //Should be text and should be changed if copy and pasted to create a new one
         newOrderButton = new Button(newOrderText.getText().toString()); //Should be button and should be changed if copy and pasted to create a new one
         newOrderButton.addEventHandler(MouseEvent.MOUSE_CLICKED,        //Should be button and should be changed if copy and pasted to create a new one
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        main.changeScene(new AddNewOrder(main).getScene(1));
-                    }
-                });
+                event -> main.changeScene(new AddNewOrder(main).getScene()));
         newOrderButton.setFont(font);                                   //Should be button and should be changed if copy and pasted to create a new one
         menuPane.getChildren().add(newOrderButton);                     //Should be button and should be changed if copy and pasted to create a new one
         newOrderButton.applyCss();                                      //Should be button and should be changed if copy and pasted to create a new one

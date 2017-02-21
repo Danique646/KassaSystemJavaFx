@@ -1,4 +1,4 @@
-package tests.com.kjellvos.school.multipleScenesTest;
+package com.kjellvos.school.multipleScenesTest;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,7 +12,7 @@ import java.util.Stack;
  */
 public class MainForMultipleScenesTest extends Application {
     private Stage primaryStage;
-    private Stack<Scene> scenes = new Stack<Scene>();
+    private Stack<Scene> scenes;
     private Scene scene;
 
     public void changeScene(Scene scene){
@@ -32,6 +32,7 @@ public class MainForMultipleScenesTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+        scenes = new Stack<>();
         scene = scenes.push(new SceneForMultipleScenesTest(this).getScene(1));
 
         /*
@@ -44,5 +45,9 @@ public class MainForMultipleScenesTest extends Application {
         primaryStage.setHeight(600);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

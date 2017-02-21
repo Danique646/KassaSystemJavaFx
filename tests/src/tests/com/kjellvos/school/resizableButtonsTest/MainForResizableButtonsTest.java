@@ -1,4 +1,4 @@
-package tests.com.kjellvos.school.resizableButtonsTest;
+package com.kjellvos.school.resizableButtonsTest;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -117,4 +117,8 @@ public class MainForResizableButtonsTest extends Application {
         checkInternetOrdersButton.relocate(padding, relocateY);
         relocateY += (topBottomPadding*2) + padding + newOrderText.getLayoutBounds().getHeight();
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }

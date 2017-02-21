@@ -20,6 +20,10 @@ public class Main extends Application {
     Domino's pizza systeem
      */
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;

@@ -1,4 +1,4 @@
-package tests.com.kjellvos.school.multipleScenesTest;
+package com.kjellvos.school.multipleScenesTest;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
