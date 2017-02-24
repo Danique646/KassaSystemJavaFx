@@ -2,20 +2,19 @@ package com.kjellvos.school.kassaSystem;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
 import java.util.Stack;
 
 public class Main extends Application {
     private Stage primaryStage;
-    private Pane menuPane;
     private Stack<Scene> scenes = new Stack<Scene>();
     private Scene scene;
-    private Font font;
 
-    private double height = 600D, width = 800D, padding = 10D, topBottomPadding, leftRightPadding;
+    private Database database;
+
+    private double height = 600D, width = 800D;
     /*
     Domino's pizza systeem
      */
@@ -27,12 +26,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
+        database = new Database(this);
         scene = scenes.push(new Menu(this).getScene());
 
         /*
         We set up the primary stage
-         */
-        primaryStage.setTitle("Hello World");
+        */
+        primaryStage.setTitle("Kassa");
         primaryStage.setMinWidth(800);
         primaryStage.setWidth(800);
         primaryStage.setMinHeight(600);
@@ -42,7 +42,7 @@ public class Main extends Application {
 
         /*
         We create the change listeners for the width and height
-         */
+        */
         setupWidthAndHeightChangeListeners();
 
     }
@@ -61,7 +61,7 @@ public class Main extends Application {
         }
     }
 
-    private void setupWidthAndHeightChangeListeners() {
+    public void setupWidthAndHeightChangeListeners() {
         scene.widthProperty().addListener((observable, oldValue, newValue) -> {
             width = newValue.doubleValue();
         });
@@ -77,5 +77,9 @@ public class Main extends Application {
 
     public double getHeight(){
         return height;
+    }
+
+    public Database getDatabase(){
+        return database;
     }
 }

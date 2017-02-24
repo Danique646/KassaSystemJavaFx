@@ -1,39 +1,34 @@
-package com.kjellvos.school.resizableGridWithResizingItemsInGridTest;
+package com.kjellvos.school.gridHandler;
 
 import com.sun.javafx.geom.Vec2d;
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Created by kjevo on 2/21/17.
  */
 public class GridHandler {
-    private MainForResizableGridWithResizingItemsInGridTest main;
     private Pane pane;
     private Scene scene;
     private ArrayList<GridItem> itemsInGrid;
 
     private double width = 0D, height = 0D;
 
-    public GridHandler(MainForResizableGridWithResizingItemsInGridTest main, Pane pane){
-        this.main = main;
-        this.pane = pane;
+    public GridHandler(){
+        pane = new Pane();
         itemsInGrid = new ArrayList<GridItem>();
         pane.setPrefWidth(800D);
         pane.setPrefHeight(600D);
-    }
-
-    public void add(int xPos, int yPos, Node UINode) {
-        add(xPos, yPos, UINode, 1, 1);
     }
 
     public Vec2d getMaxXAndMaxYFromItemsInGrid(){
@@ -51,17 +46,20 @@ public class GridHandler {
         return new Vec2d(maxX, maxY);
     }
 
+    public void add(int xPos, int yPos, Node UINode) {
+        add(xPos, yPos, UINode, 1, 1);
+    }
+
     public void add(int xPos, int yPos, Node UINode, int rowSpan, int colSpan){
         itemsInGrid.sort(new GridSorter());
         Vec2d maxXY = getMaxXAndMaxYFromItemsInGrid();
-        System.out.println(maxXY.x + " & " + maxXY.y);
         if (((int) maxXY.x) > xPos+colSpan && ((int) maxXY.y) > yPos+rowSpan) {
             itemsInGrid.remove(xPos + (yPos*maxXY.x));
             itemsInGrid.add(new GridItem(xPos, yPos, colSpan, rowSpan).setUINode(UINode));
         }else{
             for (int i = 0; i < yPos; i++) {
                 for (int i2 = 0; i2 < xPos; i2++){
-                        itemsInGrid.add(new GridItem(i2, i, 1, 1).setUINode(null));
+                    itemsInGrid.add(new GridItem(i2, i, 1, 1).setUINode(null));
                 }
             }
             itemsInGrid.add(new GridItem(xPos, yPos, colSpan, rowSpan).setUINode(UINode));
@@ -104,7 +102,7 @@ public class GridHandler {
         double relocateX = padding + (width2/maxX*xPos);
         double relocateY = padding + (height2/maxY*yPos);
         double leftRightPadding, topBottomPadding;
-        if (tempClass == javafx.scene.control.Button.class){
+        if (tempClass == Button.class){
             Button button = (Button) UINode;
             Text buttonText = new Text(button.getText().toString());
 
@@ -114,18 +112,22 @@ public class GridHandler {
             leftRightPadding = (((width2/maxX)/2)*colSpan)-(buttonText.getLayoutBounds().getWidth()/2)-(padding/2);
             button.setPadding(new Insets(topBottomPadding, leftRightPadding, topBottomPadding, leftRightPadding));
             button.relocate(relocateX, relocateY);
-        }else if (tempClass == javafx.scene.control.TableView.class){
+        }else if (tempClass == TableView.class){
             TableView tableView = (TableView) UINode;
             tableView.setPrefHeight(((height2/maxY)*rowSpan)-padding);
             tableView.setPrefWidth(((width2/maxX)*colSpan)-padding);
             tableView.relocate(relocateX, relocateY);
-        }else if (tempClass == javafx.scene.text.Text.class){
+        }else if (tempClass == Text.class){
             Text text = (Text) UINode;
             text.setFont(font);
             text.prefHeight((((height2-padding)/maxY)*rowSpan)-padding);
             text.prefWidth((((width2-padding)/maxX)*colSpan)-padding);
             text.setWrappingWidth((((width2-padding)/maxX)*colSpan)-padding);
             text.relocate(relocateX, relocateY);
+        }else if (tempClass == TextField.class){
+            TextField textField = (TextField) UINode;
+            textField.setPrefSize((((width2-padding)/maxX)*colSpan)-padding, (((height2-padding)/maxY)*rowSpan)-padding);
+            textField.relocate(relocateX, relocateY);
         }
     }
 

@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Database/Database.iml" filepath="$PROJECT_DIR$/Database/Database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GridHandler/GridHandler.iml" filepath="$PROJECT_DIR$/GridHandler/GridHandler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ItemExplorer/ItemExplorer.iml" filepath="$PROJECT_DIR$/ItemExplorer/ItemExplorer.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kassa.iml" filepath="$PROJECT_DIR$/Kassa.iml" />
       <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
     </modules>
