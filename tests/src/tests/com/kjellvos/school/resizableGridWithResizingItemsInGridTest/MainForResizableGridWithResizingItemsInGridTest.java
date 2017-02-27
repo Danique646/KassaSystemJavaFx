@@ -1,7 +1,6 @@
 package com.kjellvos.school.resizableGridWithResizingItemsInGridTest;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;

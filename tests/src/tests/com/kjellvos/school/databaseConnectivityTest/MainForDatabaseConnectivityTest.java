@@ -1,12 +1,8 @@
 package com.kjellvos.school.databaseConnectivityTest;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.sql.*;
 
 /**
  * Created by kjevo on 2/20/17.

@@ -1,15 +1,19 @@
 package com.kjellvos.school.kassaSystem.itemexplorer;
 
 import com.kjellvos.school.gridHandler.GridHandler;
+import com.kjellvos.school.kassaSystem.database.Database;
+import com.kjellvos.school.kassaSystem.database.Item;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.awt.image.BufferedImage;
+import java.sql.Date;
 import java.util.Stack;
 
 /**
@@ -29,12 +33,12 @@ public class Main extends Application {
 
     private Button addNewItem;
     private TableView tableView;
-    private TableColumn IDTableColumn, nameTableColumn, descriptionTableColumn, imageTableColumn;
+    private TableColumn IDTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, defaultPriceTableColumn, validFromTableColumn, validTillTableColumn, imageTableColumn;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        database = new Database(this);
+        database = new Database();
         addItem = new AddItem(this);
         gridHandler = new GridHandler();
 
@@ -44,7 +48,7 @@ public class Main extends Application {
         });
 
         tableView = new TableView();
-
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         IDTableColumn = new TableColumn("ID");
         IDTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
@@ -55,16 +59,29 @@ public class Main extends Application {
         descriptionTableColumn = new TableColumn("Beschrijving");
         descriptionTableColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
 
+        priceTableColumn = new TableColumn("Prijs");
+        priceTableColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("price"));
+
+        defaultPriceTableColumn = new TableColumn("De default prijs?");
+        defaultPriceTableColumn.setCellValueFactory(new PropertyValueFactory<Item, CheckBox>("defaultPrice"));
+
+        validFromTableColumn = new TableColumn("Geldig vanaf");
+        validFromTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Date>("validFrom"));
+
+        validTillTableColumn = new TableColumn("Geldig tot");
+        validTillTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Date>("validTill"));
+
         imageTableColumn = new TableColumn("Afbeelding");
         imageTableColumn.setCellValueFactory(new PropertyValueFactory<Item, Button>("showImageButton"));
 
         tableView.setItems(getDatabase().getData());
 
-        tableView.getColumns().addAll(IDTableColumn, nameTableColumn, descriptionTableColumn, imageTableColumn);
+        tableView.getColumns().addAll(IDTableColumn, nameTableColumn, descriptionTableColumn, priceTableColumn, defaultPriceTableColumn, validFromTableColumn, validTillTableColumn, imageTableColumn);
 
         gridHandler.add(0, 0, addNewItem, 1, 5);
         gridHandler.add(0, 1, tableView, 15, 5);
 
+        scene = scenes.push(gridHandler.getGridAsScene());
         /*
         We set up the primary stage
          */
@@ -73,7 +90,7 @@ public class Main extends Application {
         primaryStage.setWidth(800);
         primaryStage.setMinHeight(600);
         primaryStage.setHeight(600);
-        primaryStage.setScene(gridHandler.getGridAsScene());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -83,26 +100,17 @@ public class Main extends Application {
 
     public void changeScene(Scene scene){
         this.scene = scene;
-        scenes.push(scene);
-        primaryStage.setScene(scene);
+        scenes.push(this.scene);
+        primaryStage.setScene(this.scene);
         primaryStage.show();
     }
 
     public void returnToPreviousScene(){
+        System.out.println(scenes.size());
         if (scenes.size() > 1) {
             scenes.pop();
             primaryStage.setScene(scenes.peek());
         }
-    }
-
-    public void setupWidthAndHeightChangeListeners() {
-        scene.widthProperty().addListener((observable, oldValue, newValue) -> {
-            width = newValue.doubleValue();
-        });
-
-        scene.heightProperty().addListener((observable, oldValue, newValue) -> {
-            height = newValue.doubleValue();
-        });
     }
 
     public double getWidth(){

@@ -1,31 +1,30 @@
 package com.kjellvos.school.gridHandler;
 
 import com.sun.javafx.geom.Vec2d;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Created by kjevo on 2/21/17.
  */
 public class GridHandler {
-    private Pane pane;
     private Scene scene;
     private ArrayList<GridItem> itemsInGrid;
 
     private double width = 0D, height = 0D;
 
     public GridHandler(){
-        pane = new Pane();
+        Pane pane = new Pane();
         itemsInGrid = new ArrayList<GridItem>();
         pane.setPrefWidth(800D);
         pane.setPrefHeight(600D);
@@ -67,6 +66,7 @@ public class GridHandler {
     }
 
     public Scene getGridAsScene(){
+        Pane pane = new Pane();
         scene = new Scene(pane);
         setupWidthAndHeightChangeListeners();
         width = scene.getWidth();
@@ -128,6 +128,14 @@ public class GridHandler {
             TextField textField = (TextField) UINode;
             textField.setPrefSize((((width2-padding)/maxX)*colSpan)-padding, (((height2-padding)/maxY)*rowSpan)-padding);
             textField.relocate(relocateX, relocateY);
+        }else if (tempClass == CheckBox.class){
+            CheckBox checkBox = (CheckBox) UINode;
+            checkBox.setPrefSize((((width2-padding)/maxX)*colSpan)-padding, (((height2-padding)/maxY)*rowSpan)-padding);
+            checkBox.relocate(relocateX, relocateY);
+        }else if (tempClass == DatePicker.class) {
+            DatePicker datePicker = (DatePicker) UINode;
+            datePicker.setPrefSize((((width2-padding)/maxX)*colSpan)-padding, (((height2-padding)/maxY)*rowSpan)-padding);
+            datePicker.relocate(relocateX, relocateY);
         }
     }
 

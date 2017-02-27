@@ -2,7 +2,6 @@ package com.kjellvos.school.databaseConnectivityTest;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sun.applet.Main;
 
 import java.sql.*;
 

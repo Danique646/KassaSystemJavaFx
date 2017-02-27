@@ -1,10 +1,10 @@
 package com.kjellvos.school.kassaSystem;
 
+import com.kjellvos.school.kassaSystem.database.Database;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 import java.util.Stack;
 
 public class Main extends Application {
@@ -26,7 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
-        database = new Database(this);
+        database = new Database();
         scene = scenes.push(new Menu(this).getScene());
 
         /*

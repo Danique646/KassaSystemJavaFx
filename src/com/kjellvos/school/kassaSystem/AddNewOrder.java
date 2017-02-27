@@ -1,14 +1,13 @@
 package com.kjellvos.school.kassaSystem;
 
 import com.kjellvos.school.gridHandler.GridHandler;
-import javafx.application.Application;
+import com.kjellvos.school.kassaSystem.database.Item;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 
 import java.util.Optional;
 

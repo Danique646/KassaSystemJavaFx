@@ -1,9 +1,9 @@
-package com.kjellvos.school.kassaSystem;
+package com.kjellvos.school.kassaSystem.database;
 
-import com.kjellvos.school.kassaSystem.itemexplorer.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDate;
 
 /**
  * Created by kjevo on 2/24/17.
@@ -23,7 +24,7 @@ public class Database {
     static final String USER = "KassaSystem";
     static final String PASS = "password123321";
 
-    public void uploadToItemsAndImages(File file, String name, String description){
+    public void uploadToItemsAndImages(File file, String name, String description, double price, boolean defaultPrice, Date validFrom, Date validTill){
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -47,6 +48,15 @@ public class Database {
             statement.setBinaryStream(2, fis, file.length());
             statement.executeUpdate();
 
+            sql = "INSERT INTO Prices SET ItemsID=?, price=?, defaultPrice=?, ValidFrom=?, ValidTill=?;";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, itemsID);
+            statement.setDouble(2, price);
+            statement.setBoolean(3, defaultPrice);
+            statement.setDate(4, validFrom);
+            statement.setDate(5, validTill);
+            statement.executeUpdate();
+
             statement.close();
             connection.close();
         } catch (Exception ex) {
@@ -63,10 +73,7 @@ public class Database {
 
             String sql = "SELECT * FROM Items;";
             statement = connection.prepareStatement(sql);
-
             ResultSet resultSet = statement.executeQuery(sql);
-
-
             data = FXCollections.observableArrayList();
             while (resultSet.next()){
                 int id = resultSet.getInt("ID");
@@ -82,7 +89,20 @@ public class Database {
 
                     ImageView imageView = new ImageView();
                     imageView.setImage(new Image(img));
-                    data.add(new Item(id, name, description, imageView, new Button("Show image")));
+                    sql = "SELECT * FROM Prices WHERE ItemsID='" + id + "';";
+                    statement = connection.prepareStatement(sql);
+
+                    ResultSet resultSet2 = statement.executeQuery(sql);
+                    while (resultSet2.next()) {
+                        double price = resultSet2.getDouble("price");
+                        boolean defaultPrice = resultSet2.getBoolean("defaultPrice");
+                        CheckBox defaultPriceCheckBox = new CheckBox("Ja");
+                        defaultPriceCheckBox.setSelected(defaultPrice);
+                        Date validFrom = resultSet2.getDate("ValidFrom");
+                        Date validTill = resultSet2.getDate("ValidTill");
+
+                        data.add(new Item(id, name, description, imageView, new Button("Show image"), price, defaultPriceCheckBox, validFrom, validTill));
+                    }
                 }
             }
         } catch (Exception ex) {
