@@ -24,7 +24,7 @@ public class Main extends Application {
     private AddItem addItem;
     private Database database;
 
-    private Stack<Scene> scenes = new Stack<Scene>();
+    private Stack<Scene> scenes = new Stack<>();
     private Scene scene;
 
     private double height = 600D, width = 800D;
@@ -43,9 +43,7 @@ public class Main extends Application {
         gridHandler = new GridHandler();
 
         addNewItem = new Button("Nieuw item toevoegen aan de database!");
-        addNewItem.setOnMouseClicked(event -> {
-            changeScene(addItem.getScene());
-        });
+        addNewItem.setOnMouseClicked(event -> changeScene(addItem.getScene()));
 
         tableView = new TableView();
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
