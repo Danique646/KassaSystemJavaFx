@@ -14,7 +14,6 @@ public class Main extends Application {
 
     private Database database;
 
-    private double height = 600D, width = 800D;
     /*
     Domino's pizza systeem
      */
@@ -39,12 +38,6 @@ public class Main extends Application {
         primaryStage.setHeight(600);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        /*
-        We create the change listeners for the width and height
-        */
-        setupWidthAndHeightChangeListeners();
-
     }
 
     public void changeScene(Scene scene){
@@ -59,24 +52,6 @@ public class Main extends Application {
             scenes.pop();
             primaryStage.setScene(scenes.peek());
         }
-    }
-
-    public void setupWidthAndHeightChangeListeners() {
-        scene.widthProperty().addListener((observable, oldValue, newValue) -> {
-            width = newValue.doubleValue();
-        });
-
-        scene.heightProperty().addListener((observable, oldValue, newValue) -> {
-            height = newValue.doubleValue();
-        });
-    }
-
-    public double getWidth(){
-        return width;
-    }
-
-    public double getHeight(){
-        return height;
     }
 
     public Database getDatabase(){

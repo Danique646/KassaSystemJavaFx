@@ -5,8 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Database/Database.iml" filepath="$PROJECT_DIR$/Database/Database.iml" />
       <module fileurl="file://$PROJECT_DIR$/GridHandler/GridHandler.iml" filepath="$PROJECT_DIR$/GridHandler/GridHandler.iml" />
       <module fileurl="file://$PROJECT_DIR$/ItemExplorer/ItemExplorer.iml" filepath="$PROJECT_DIR$/ItemExplorer/ItemExplorer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Kassa.iml" filepath="$PROJECT_DIR$/Kassa.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/Kassa.iml" filepath="$PROJECT_DIR$/src/Kassa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tests/src/tests.iml" filepath="$PROJECT_DIR$/tests/src/tests.iml" />
     </modules>
   </component>
 </project>

@@ -4,7 +4,6 @@ import com.kjellvos.school.gridHandler.GridHandler;
 import com.kjellvos.school.kassaSystem.database.Database;
 import com.kjellvos.school.kassaSystem.database.Item;
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -26,8 +25,6 @@ public class Main extends Application {
 
     private Stack<Scene> scenes = new Stack<>();
     private Scene scene;
-
-    private double height = 600D, width = 800D;
 
     private GridHandler gridHandler;
 
@@ -109,14 +106,6 @@ public class Main extends Application {
             scenes.pop();
             primaryStage.setScene(scenes.peek());
         }
-    }
-
-    public double getWidth(){
-        return width;
-    }
-
-    public double getHeight(){
-        return height;
     }
 
     public Stage getPrimaryStage(){
